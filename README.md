@@ -1,5 +1,7 @@
 # `@selemondev/create-react-eslint-config`
 
+Currently undergoing heavy development 🚧
+
 An Eslint CLI to rapidly setup ESLint in React.js projects.
 
 ## Usage

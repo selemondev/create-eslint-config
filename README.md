@@ -1,3 +1,6 @@
+
+WIP 🚧
+
 # `@selemondev/create-react-eslint-config`
 
 An Eslint CLI to rapidly setup ESLint in React.js projects.

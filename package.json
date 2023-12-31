@@ -1,0 +1,66 @@
+{
+    "name": "@selemondev/create-eslint-config",
+    "type": "module",
+    "version": "1.2.4",
+    "packageManager": "pnpm@8.12.1",
+    "description": "An Eslint CLI to rapidly setup ESLint in React.js projects.",
+    "author": "Selemondev",
+    "license": "MIT",
+    "homepage": "https://github.com/selemondev/create-eslint-config/#readme",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/selemondev/create-eslint-config.git"
+    },
+    "bin": {
+        "create-eslint-config": "bin/create-eslint-config.js"
+    },
+    "bugs": "https://github.com/selemondev/create-eslint-config/issues",
+    "keywords": [
+        "react",
+        "eslint",
+        "config"
+    ],
+    "engines": {
+        "node": "^16.14.0 || >= 18.0.0"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "main": "src/index.js",
+    "scripts": {
+        "lint": "eslint .",
+        "release": "bumpp && npm publish",
+        "test": "vitest",
+        "prepare": "simple-git-hooks"
+    },
+    "devDependencies": {
+        "@antfu/eslint-config": "^2.6.0",
+        "@antfu/ni": "^0.21.12",
+        "@antfu/utils": "^0.7.7",
+        "@rushstack/eslint-patch": "^1.6.1",
+        "@typescript-eslint/eslint-plugin": "^6.16.0",
+        "@typescript-eslint/parser": "^6.10.0",
+        "bumpp": "^9.2.1",
+        "eslint": "^8.56.0",
+        "eslint-config-airbnb": "^19.0.4",
+        "eslint-config-airbnb-typescript": "^17.1.0",
+        "eslint-config-standard": "^17.1.0",
+        "eslint-config-typescript": "^3.0.0",
+        "eslint-plugin-react": "^7.33.2",
+        "eslint-plugin-react-hooks": "^4.6.0",
+        "eslint-plugin-react-refresh": "^0.4.4",
+        "lint-staged": "^15.2.0",
+        "pnpm": "^8.12.1",
+        "simple-git-hooks": "^2.9.0",
+        "standard": "^17.1.0",
+        "typescript": "^5.3.3",
+        "vite": "^5.0.10",
+        "vitest": "^1.1.0"
+    },
+    "simple-git-hooks": {
+        "pre-commit": "pnpm lint-staged"
+    },
+    "lint-staged": {
+        "*": "eslint --fix"
+    }
+}

@@ -64,6 +64,8 @@ export default function createConfig({
       addDependencyAndExtend(`eslint-config-${styleGuide}-react`)
       addDependencyAndExtend('eslint-config-standard')
       addDependencyAndExtend('eslint-config-standard-jsx')
+      addDependency('@babel/eslint-parser')
+      addDependency('@babel/core')
       break
     case 'standard-typescript':
       addDependencyAndExtend(`eslint-config-standard-with-typescript`)

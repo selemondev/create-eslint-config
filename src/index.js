@@ -25,6 +25,7 @@ export default function createConfig({
   const language = hasTypeScript ? 'typescript' : 'javascript'
   const eslintConfig = {
     root: true,
+    env: { browser: true, es2020: true },
     extends: [],
     ignorePatterns: ['dist', '.eslintrc.cjs'],
     plugins: ['react-refresh'],

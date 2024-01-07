@@ -11,7 +11,8 @@ import createConfig from '../src/index.js'
 
 const require = createRequire(import.meta.url)
 const Enquirer = require('enquirer')
-const additionalConfig = {};
+
+const additionalConfig = {}
 
 const enquirer = new Enquirer()
 function abort() {
@@ -53,8 +54,8 @@ for (const fmt of eslintConfigFormats) {
       disabled: 'No',
       enabled: 'Yes',
       name: 'shouldRemove',
-      message: `Found existing ESLint config file: ${bold(blue(configFileName))}.\n`
-        + 'Do you want to remove the config file and continue?',
+      message: `Found an existing ESLint config file: ${bold(blue(configFileName))}.\n`
+      + 'Do you want to remove the config file and continue?',
       initial: false,
     })
     if (shouldRemove)
@@ -70,7 +71,7 @@ if (pkg.eslintConfig) {
     enabled: 'Yes',
     name: 'shouldRemoveConfigField',
     message: `Found existing ${bold(blue('eslintConfig'))} field in ${bold(yellow('package.json'))}.\n`
-      + 'Do you want to remove the config field and continue?',
+    + 'Do you want to remove the config field and continue?',
     initial: false,
   })
   if (shouldRemoveConfigField)
@@ -87,7 +88,7 @@ const { styleGuide } = await prompt({
   choices: [
     {
       name: 'default',
-      message: 'ESLint Recommended (Error-Prevention-Only)',
+      message: 'ESLint (Error-Prevention-Only) - (Recommended)',
     },
     {
       name: 'airbnb',
@@ -111,20 +112,30 @@ try {
     message: 'Does your project use TypeScript?',
     initial: false,
   })
-  hasTypeScript = anwsers.hasTypeScript;
+  hasTypeScript = anwsers.hasTypeScript
 
   if (hasTypeScript) {
     additionalConfig.extends = [
       'plugin:@typescript-eslint/recommended',
     ]
-  } else {
+  }
+  else {
     additionalConfig.extends = [
       'plugin:react/jsx-runtime',
-    ],
-      additionalConfig.settings = {
-        react: { version: '18.2' }
-      }
+    ]
+    additionalConfig.settings = {
+      react: { version: '18.2' },
+    }
   }
+
+// else {
+//   additionalConfig.extends = [
+//     'plugin:react/jsx-runtime',
+//   ],
+//   additionalConfig.settings = {
+//     react: { version: '18.2' }
+//   }
+// }
 }
 catch (e) {
   console.error(e)
@@ -176,7 +187,7 @@ const { pkg: pkgToExtend, files } = createConfig({
   styleGuide,
   hasTypeScript,
   additionalConfig,
-  additionalDependencies: {}
+  additionalDependencies: {},
 })
 deepMerge(pkg, pkgToExtend)
 // Write `package.json` back
@@ -190,6 +201,6 @@ for (const [name, content] of Object.entries(files)) {
 const installCommand = packageManager === 'yarn' ? 'yarn' : `${packageManager} install`
 const lintCommand = packageManager === 'npm' ? 'npm run lint' : `${packageManager} lint`
 console.info('\n'
-  + `${bold(yellow('package.json'))} and ${bold(blue('.eslintrc.cjs'))} have been updated.\n`
-  + `Now please run ${bold(green(installCommand))} to re-install the dependencies.\n`
-  + `Then you can run ${bold(green(lintCommand))} to lint your files.`)
++ `${bold(yellow('package.json'))} and ${bold(blue('.eslintrc.cjs'))} have been updated.\n`
++ `Now please run ${bold(green(installCommand))} to re-install the dependencies.\n`
++ `Then you can run ${bold(green(lintCommand))} to lint your files.`)

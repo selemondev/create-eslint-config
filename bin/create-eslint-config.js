@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 import { existsSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs'
-import { createRequire } from 'node:module'
 import path from 'node:path'
 import process from 'node:process'
 import { blue, bold, dim, green, red, yellow } from 'kolorist'
@@ -9,7 +8,6 @@ import { CREATE_ALIAS_SETTING_PLACEHOLDER } from '../src/constants.js'
 import { deepMerge } from '../utils/deepMerge.js'
 import createConfig from '../src/index.js'
 
-const require = createRequire(import.meta.url)
 const Enquirer = require('enquirer')
 
 const additionalConfig = {}
@@ -92,11 +90,11 @@ const { styleGuide } = await prompt({
     },
     {
       name: 'airbnb',
-      message: `Airbnb ${dim('(https://airbnb.io/javascript/)')}`,
+      message: `Airbnb ${dim('(https://airbnb.io/javascript/)')} 🚧`,
     },
     {
       name: 'standard',
-      message: `Standard ${dim('(https://standardjs.com/)')}`,
+      message: `Standard ${dim('(https://standardjs.com/)')} 🚧`,
     },
   ],
 })
@@ -127,15 +125,6 @@ try {
       react: { version: '18.2' },
     }
   }
-
-// else {
-//   additionalConfig.extends = [
-//     'plugin:react/jsx-runtime',
-//   ],
-//   additionalConfig.settings = {
-//     react: { version: '18.2' }
-//   }
-// }
 }
 catch (e) {
   console.error(e)

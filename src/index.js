@@ -57,11 +57,23 @@ export default function createConfig({
       addDependency('@typescript-eslint/eslint-plugin')
       break
     case 'airbnb-javascript':
+      eslintConfig.extends.push('airbnb', 'airbnb/hooks')
+      addDependency('eslint-config-airbnb', 'eslint-plugin-import', 'eslint-plugin-jsx-a11y', 'eslint-plugin-react', 'eslint-plugin-react-hooks')
+      break
     case 'standard-javascript':
-      addDependencyAndExtend(`eslint-config-${styleGuide}`)
+      addDependencyAndExtend(`eslint-config-${styleGuide}-react`)
+      addDependencyAndExtend('eslint-config-standard')
+      addDependencyAndExtend('eslint-config-standard-jsx')
+      break
+    case 'standard-typescript':
+      addDependencyAndExtend(`eslint-config-standard-with-typescript`)
+      addDependency('@typescript-eslint/parser')
+      addDependency('@typescript-eslint/eslint-plugin')
+      addDependency('eslint-plugin-promise')
+      addDependency('@typescript-eslint/eslint-plugin')
+      addDependency('eslint-plugin-n')
       break
     case 'airbnb-typescript':
-    case 'standard-typescript':
       addDependencyAndExtend(`eslint-config-${styleGuide}-typescript`)
       addDependency('@typescript-eslint/parser')
       addDependency('@typescript-eslint/eslint-plugin')
@@ -74,6 +86,20 @@ export default function createConfig({
   const files = {
     '.eslintrc.cjs': '',
   }
+  //     if (styleGuide === 'default' && !hasTypeScript) {
+  //         // Both Airbnb & Standard have already set `env: node`
+  //         files['.eslintrc.cjs'] += '/* eslint-env node */\n'
+  //         // Both Airbnb & Standard have already set `ecmaVersion`
+  //         eslintConfig.parserOptions = {
+  //             ecmaVersion: 'latest',
+  //             sourceType: 'module',
+  //         },
+  //   } else if (styleGuide === 'standard' && !hasTypeScript) {
+  //         eslintConfig.parser = '@babel/eslint-parser'
+  //     } else if (hasTypeScript) {
+  //         eslintConfig.parser = '@typescript-eslint/parser'
+  //     }
+
   if (styleGuide === 'default' && !hasTypeScript) {
     // Both Airbnb & Standard have already set `env: node`
     files['.eslintrc.cjs'] += '/* eslint-env node */\n'
@@ -83,9 +109,13 @@ export default function createConfig({
       sourceType: 'module',
     }
   }
+  else if (styleGuide === 'standard' && !hasTypeScript) {
+    eslintConfig.parser = '@babel/eslint-parser'
+  }
   else if (hasTypeScript) {
     eslintConfig.parser = '@typescript-eslint/parser'
   }
+
   if (pkg.devDependencies['@rushstack/eslint-patch'])
     files['.eslintrc.cjs'] += 'require(\'@rushstack/eslint-patch/modern-module-resolution\')\n\n'
   files['.eslintrc.cjs'] += `module.exports = ${stringifyJS(eslintConfig, styleGuide)}\n`
